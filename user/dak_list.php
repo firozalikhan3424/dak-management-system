@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user['role'] === 'dispatcher') {
     verify_csrf_token();
     db()->prepare('UPDATE dak_master SET subject=:subject, originator=:originator WHERE id=:id AND status=:status')
         ->execute([':subject' => trim($_POST['subject']), ':originator' => trim($_POST['originator']), ':id' => (int)$_POST['id'], ':status' => 'pending']);
-    header('Location: /user/dak_list.php');
+    header('Location: ' . app_url('user/dak_list.php'));
     exit;
 }
 

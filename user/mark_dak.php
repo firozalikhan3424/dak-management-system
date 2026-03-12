@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':id' => (int)$_POST['dak_id'],
             ':pending' => 'pending',
         ]);
-    header('Location: /user/mark_dak.php');
+    header('Location: ' . app_url('user/mark_dak.php'));
     exit;
 }
 

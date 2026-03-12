@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf_token();
     db()->prepare('INSERT INTO sub_branches (branch_id, sub_branch_name, file_start, file_end, status) VALUES (:branch_id,:name,:start,:end,:status)')
         ->execute([':branch_id' => (int)$_POST['branch_id'], ':name' => trim($_POST['sub_branch_name']), ':start' => (int)$_POST['file_start'], ':end' => (int)$_POST['file_end'], ':status' => 1]);
-    header('Location: /admin/sub_branches.php');
+    header('Location: ' . app_url('admin/sub_branches.php'));
     exit;
 }
 $branches = db()->query('SELECT id, branch_name FROM branches WHERE status=1 ORDER BY branch_name')->fetchAll();

@@ -5,5 +5,5 @@ if (auth_user()) {
 }
 session_unset();
 session_destroy();
-header('Location: /auth/login.php');
+header('Location: ' . app_url('auth/login.php'));
 exit;

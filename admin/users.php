@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data[':password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $stmt->execute($data);
     }
-    header('Location: /admin/users.php');
+    header('Location: ' . app_url('admin/users.php'));
     exit;
 }
 

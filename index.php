@@ -4,5 +4,5 @@ if (auth_user()) {
     header('Location: ' . role_home(auth_user()['role']));
     exit;
 }
-header('Location: /auth/login.php');
+header('Location: ' . app_url('auth/login.php'));
 exit;

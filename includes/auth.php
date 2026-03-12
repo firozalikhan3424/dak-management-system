@@ -10,6 +10,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 const SESSION_TIMEOUT = 1800;
 
+function app_url(string $path = ''): string
+{
+    return rtrim(APP_URL, '/') . '/' . ltrim($path, '/');
+}
+
 function esc(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -45,7 +50,7 @@ function auth_user(): ?array
 function require_login(): void
 {
     if (!isset($_SESSION['auth_user'])) {
-        header('Location: /auth/login.php');
+        header('Location: ' . app_url('auth/login.php'));
         exit;
     }
 
@@ -55,7 +60,7 @@ function require_login(): void
         session_destroy();
         session_start();
         $_SESSION['flash_error'] = 'Session expired due to inactivity.';
-        header('Location: /auth/login.php');
+        header('Location: ' . app_url('auth/login.php'));
         exit;
     }
 
@@ -118,11 +123,11 @@ function generate_control_number(): string
 function role_home(string $role): string
 {
     return match ($role) {
-        'admin' => '/admin/dashboard.php',
-        'dispatcher' => '/user/incoming_dak.php',
-        'head_clerk' => '/user/mark_dak.php',
-        'branch_clerk' => '/user/branch_action.php',
-        'officer', 'co' => '/user/dashboard.php',
-        default => '/auth/login.php',
+        'admin' => app_url('admin/dashboard.php'),
+        'dispatcher' => app_url('user/incoming_dak.php'),
+        'head_clerk' => app_url('user/mark_dak.php'),
+        'branch_clerk' => app_url('user/branch_action.php'),
+        'officer', 'co' => app_url('user/dashboard.php'),
+        default => app_url('auth/login.php'),
     };
 }

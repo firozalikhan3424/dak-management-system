@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fileNo = (int)$_POST['file_no'];
     if (!$r || $fileNo < (int)$r['file_start'] || $fileNo > (int)$r['file_end']) {
         flash('flash_error', 'Invalid file number for assigned sub branch range.');
-        header('Location: /user/branch_action.php?dak_id=' . $dakId);
+        header('Location: ' . app_url('user/branch_action.php?dak_id=' . $dakId));
         exit;
     }
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     db()->prepare("UPDATE dak_master SET status='in_progress' WHERE id=:id")->execute([':id' => $dakId]);
-    header('Location: /user/branch_action.php');
+    header('Location: ' . app_url('user/branch_action.php'));
     exit;
 }
 

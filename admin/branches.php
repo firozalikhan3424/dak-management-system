@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf_token();
     db()->prepare('INSERT INTO branches (branch_name, description, status) VALUES (:name,:description,:status)')
         ->execute([':name' => trim($_POST['branch_name']), ':description' => trim($_POST['description']), ':status' => (int)$_POST['status']]);
-    header('Location: /admin/branches.php');
+    header('Location: ' . app_url('admin/branches.php'));
     exit;
 }
 $rows = db()->query('SELECT * FROM branches ORDER BY id DESC')->fetchAll();

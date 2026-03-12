@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':year' => (int)$_POST['year'],
             ':sequence_length' => (int)$_POST['sequence_length'],
         ]);
-    header('Location: /admin/dak_number_settings.php');
+    header('Location: ' . app_url('admin/dak_number_settings.php'));
     exit;
 }
 

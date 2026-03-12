@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     log_audit((int)auth_user()['id'], 'incoming_dak', 'create', null, $control);
     flash('flash_success', "DAK created successfully. Control Number: {$control}");
-    header('Location: /user/incoming_dak.php');
+    header('Location: ' . app_url('user/incoming_dak.php'));
     exit;
 }
 
