@@ -1,0 +1,17 @@
+:root {
+    --primary: #0f172a;
+    --accent: #075985;
+    --bg: #f8fafc;
+}
+body { font-family: Inter, Roboto, sans-serif; background: var(--bg); }
+.app-shell { min-height: 100vh; }
+.sidebar { width: 270px; background: linear-gradient(180deg, #0f172a 0%, #111827 100%); }
+.menu-link { color: #cbd5e1; display: block; text-decoration: none; padding: .6rem .75rem; border-radius: .6rem; margin-bottom: .25rem; }
+.menu-link:hover, .menu-link.active { color: #fff; background: rgba(14, 165, 233, .2); }
+.main-panel { flex: 1; }
+.topbar { background: #fff; border-bottom: 1px solid #e2e8f0; }
+.card { border: none; border-radius: 1rem; box-shadow: 0 10px 25px rgba(2, 6, 23, .06); }
+.overdue-row { background: #fee2e2 !important; }
+.kpi-card h2 { margin-bottom: 0; font-weight: 700; }
+.badge-priority { background: #991b1b; }
+.badge-speak { background: #92400e; }
