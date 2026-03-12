@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/helpers/auth_helper.php';
-
-if (current_user()) {
-    redirect(role_home(current_user()['role']));
+require_once __DIR__ . '/includes/auth.php';
+if (auth_user()) {
+    header('Location: ' . role_home(auth_user()['role']));
+    exit;
 }
-
-redirect('modules/auth/login.php');
+header('Location: /auth/login.php');
+exit;

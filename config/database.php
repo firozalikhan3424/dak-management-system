@@ -13,7 +13,7 @@ function db(): PDO
     }
 
     $host = getenv('DB_HOST') ?: '127.0.0.1';
-    $name = getenv('DB_NAME') ?: 'dak_management';
+    $name = getenv('DB_NAME') ?: 'dak_system';
     $user = getenv('DB_USER') ?: 'root';
     $pass = getenv('DB_PASS') ?: '';
 

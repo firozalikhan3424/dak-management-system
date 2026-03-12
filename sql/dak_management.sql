@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS dak_management CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE dak_management;
+CREATE DATABASE IF NOT EXISTS dak_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE dak_system;
 
 CREATE TABLE IF NOT EXISTS branches (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,6 +30,14 @@ CREATE TABLE IF NOT EXISTS users (
   FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
 
+CREATE TABLE IF NOT EXISTS dak_number_settings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  prefix VARCHAR(20) NOT NULL DEFAULT 'DAK',
+  year INT NOT NULL,
+  sequence_length INT NOT NULL DEFAULT 4,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS dak_master (
   id INT AUTO_INCREMENT PRIMARY KEY,
   control_no VARCHAR(30) NOT NULL UNIQUE,
@@ -39,7 +47,7 @@ CREATE TABLE IF NOT EXISTS dak_master (
   subject VARCHAR(255) NOT NULL,
   security_class ENUM('Unclassified','Confidential','Secret') NOT NULL,
   receipt_date DATE NOT NULL,
-  receipt_mode ENUM('Post','Hand') NOT NULL,
+  receipt_mode ENUM('Post','By Hand') NOT NULL,
   ihq TINYINT(1) NOT NULL DEFAULT 0,
   dak_type ENUM('Normal','Priority') NULL,
   branch_id INT NULL,
@@ -91,7 +99,13 @@ INSERT INTO branches (branch_name, description, status) VALUES
 ('A Branch','Administration',1),('Q Branch','Quartermaster',1),('PRI','Public Relations',1),('Docu Cell','Documentation',1);
 
 INSERT INTO sub_branches (branch_id, sub_branch_name, file_start, file_end, status) VALUES
-(1,'A1',1000,1200,1),(1,'A2',1201,1400,1),(2,'Q1',2000,2200,1);
+(1,'A1',1000,1200,1),(1,'A2',1201,1400,1),(1,'A3',1401,1600,1),(2,'Q1',2000,2200,1);
+
+INSERT INTO dak_number_settings (prefix, year, sequence_length) VALUES ('DAK', 2026, 4);
 
 INSERT INTO users (name, username, password, role, branch_id, status) VALUES
-('System Admin','admin','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','admin',NULL,1);
+('System Admin','admin','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','admin',NULL,1),
+('Dispatch Clerk','dispatcher1','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','dispatcher',NULL,1),
+('Head Clerk','headclerk1','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','head_clerk',NULL,1),
+('Branch Clerk A','brancha1','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','branch_clerk',1,1),
+('CO User','co1','$2y$12$0BmreDFt35zYB.FUdcvQ5OjW2EP9i//JgjiwN1yS4QeSb5AWPaY/6','co',NULL,1);

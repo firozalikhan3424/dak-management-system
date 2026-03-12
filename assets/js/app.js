@@ -1,19 +1,17 @@
 (function () {
-  const el = document.getElementById('monthlyChart');
-  if (el && window.dashboardMonthlyData) {
-    new Chart(el, {
-      type: 'line',
+  if (window.dashboardStats && document.getElementById('dakChart')) {
+    const c = document.getElementById('dakChart');
+    new Chart(c, {
+      type: 'bar',
       data: {
-        labels: window.dashboardMonthlyData.labels,
+        labels: window.dashboardStats.labels,
         datasets: [{
-          label: 'Monthly DAK',
-          data: window.dashboardMonthlyData.values,
-          borderColor: '#0ea5e9',
-          backgroundColor: 'rgba(14,165,233,.15)',
-          tension: 0.3,
-          fill: true
+          label: 'Incoming DAK',
+          data: window.dashboardStats.values,
+          backgroundColor: '#075985'
         }]
-      }
+      },
+      options: {responsive: true, plugins: {legend: {display: false}}}
     });
   }
 })();

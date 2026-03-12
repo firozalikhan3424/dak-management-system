@@ -1,48 +1,77 @@
-# Army DAK Management System (Core PHP + MySQL)
+# Army DAK Management System
 
-Professional DAK management platform for Army administration workflows.
+Professional, military-style DAK (official correspondence) management system built with **Core PHP + MySQL + Bootstrap 5**.
 
-## Features
-- Role-based authentication with session timeout and password hashing.
-- Dispatcher incoming DAK entry with automatic control numbers (`DAK-YYYY-XXXX`).
-- Head clerk marking and branch assignment.
-- Branch action workflow with file number range validation.
-- Dashboard metrics + Chart.js monthly trends.
-- Global search, pagination utility, and overdue highlighting.
-- Reporting screens (pending, branch-wise, speak cases, summary).
-- Audit logging for key actions.
+## Key Highlights
+- Clear **Admin Panel** and **User Panel** separation.
+- Role-based access: `admin`, `dispatcher`, `head_clerk`, `branch_clerk`, `officer`, `co`.
+- Secure authentication with password hashing and session timeout.
+- Sequential control number generation using configurable format (`DAK-YYYY-XXXX`).
+- Complete DAK workflow: incoming entry → head clerk marking → branch action → reporting.
+- Search, overdue highlighting, speak-case tracking, and export to Excel/PDF (print).
 
-## Stack
-- PHP 8+
-- MySQL 8+
-- Bootstrap 5.3
-- Chart.js
+## Project Structure
+```text
+dak-management/
+├── assets/
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── config/
+│   └── database.php
+├── includes/
+│   ├── auth.php
+│   ├── header.php
+│   ├── footer.php
+│   └── sidebar.php
+├── admin/
+│   ├── dashboard.php
+│   ├── users.php
+│   ├── branches.php
+│   ├── sub_branches.php
+│   └── dak_number_settings.php
+├── user/
+│   ├── dashboard.php
+│   ├── incoming_dak.php
+│   ├── mark_dak.php
+│   ├── branch_action.php
+│   ├── dak_list.php
+│   └── reports.php
+├── auth/
+│   ├── login.php
+│   └── logout.php
+├── uploads/
+└── sql/
+    └── dak_management.sql
+```
 
-## Folder Structure
-Matches requested modular architecture under `assets/`, `config/`, `helpers/`, `includes/`, `modules/`, `uploads/`, `logs/`, and `sql/`.
-
-## Setup Instructions
-1. Create database and schema:
-   - Import `sql/dak_management.sql` in MySQL.
-2. Configure DB credentials using environment variables (recommended):
+## Installation (XAMPP / Apache / PHP 8+)
+1. Copy project into web root (e.g., `htdocs/dak-management`).
+2. Create database from SQL:
+   - Import `sql/dak_management.sql` (creates database `dak_system`).
+3. Configure environment (optional):
    - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`
-3. Start local PHP server from project root:
-   ```bash
-   php -S 0.0.0.0:8000
-   ```
-4. Open:
-   - `http://localhost:8000`
-5. Default admin login:
-   - Username: `admin`
-   - Password: `admin123`
+4. Start Apache and MySQL.
+5. Open: `http://localhost/dak-management/auth/login.php`
 
-## Security Controls Implemented
+## Default Demo Credentials
+- `admin / admin123`
+- `dispatcher1 / admin123`
+- `headclerk1 / admin123`
+- `brancha1 / admin123`
+- `co1 / admin123`
+
+## Security Controls
 - PDO prepared statements
-- CSRF tokens on state-changing forms
-- XSS-safe output escaping (`htmlspecialchars`)
-- Session inactivity timeout
-- Password hashing (`password_hash` + `password_verify`)
+- CSRF tokens on forms
+- Password hashing (`password_hash`, `password_verify`)
+- Session authentication + inactivity timeout
+- Output escaping to reduce XSS risk
 
-## Notes
-- PDF/Excel export hooks can be plugged into report endpoints.
-- Reminder scheduling for pending >7 days can be added via cron job and mail/SMS integration.
+## Reports & Export
+- Pending DAK
+- Branch-wise pending
+- Speak cases
+- Date-wise incoming
+- Reply pending
+- Export as CSV (Excel) and PDF via browser print
